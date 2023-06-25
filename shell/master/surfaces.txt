@@ -1,0 +1,32 @@
+version,1
+
+surface15
+{
+	animation0.interval,runonce
+	animation0.pattern0,replace,115,100,0,0
+	animation0.pattern1,replace,215,100,0,0
+	animation0.pattern2,replace,115,100,0,0
+	animation0.pattern3,replace,315,100,0,0
+	animation0.pattern3,replace,15,200,0,0
+	animation0.pattern4,replace,-1,100,0,0
+}
+
+surface16
+{
+	animation0.interval,always
+	animation0.pattern0,replace,116,900,0,0
+	animation0.pattern1,replace,16,900,0,0
+}
+
+surface17
+{
+	animation0.interval,random,3
+	animation0.pattern0,replace,117,200,0,0
+	animation0.pattern1,replace,17,200,0,0
+
+	animation1.interval,random,6
+	animation1.pattern0,replace,117,200,0,0
+	animation1.pattern1,replace,17,200,0,0
+	animation1.pattern2,replace,117,200,0,0
+	animation1.pattern3,replace,17,200,0,0
+}

@@ -1,0 +1,184 @@
+OnTranslate
+{
+	_talk = reference0
+	
+	//это то, что дозволит %(встроенные_элементи) работать в ввод скрипта
+	if reference1 == "" && reference2 == "" //если это происходит от ввод скрипта
+	{ //отправить вод скрипта : нет событии (ref2) , нет флаг (ref1)
+		_talk = EVAL('"' + REPLACE(_talk,'"','""') + '"')
+	}
+	
+	//если есть что-нибудь добавить к OnTranslate, например, замена текст, я бы поставила его после этой точки. просто проверить, что он перед код TOSTR(_talk)
+	
+	TOSTR(_talk)
+}
+
+//это просто здесь, что ты можешь ссылковать веб-сайти как якорь, но обычные выбори меню ещё работает! Если так сделаешь, полезный просмотр будет в поле с текстом
+OnAnchorSelect
+{
+	if "http://" _in_ reference0 || "https://" _in_ reference0; "\j[""%(reference0)""]"
+}
+
+//горячие клавищи
+OnKeyPress
+{
+	if reference0 == "f1"; "\![open,readme]"
+	elseif reference0 == "f2"; "%(aitalkinterval)"
+	elseif reference0 == "t"; OnAiTalk
+	elseif reference0 == "r"; OnLastTalk
+}
+
+//происходит примерно 30 секундов после конца скрипт, чтобы вернуть им к нормальные позы
+OnSurfaceRestore
+{
+	"\0\i[0]\1\i[0]\p[2]\i[0]\p[3]\i[0]\p[4]\i[0]\p[5]\i[0]\p[6]\i[0]\p[7]\i[0]\p[8]\i[0]\p[9]\i[0]\p[10]\i[0]\p[11]\i[0]\p[12]\i[0]\p[13]\i[0]\w6\1\s[-1]\p[2]\s[-2]\p[3]\s[-1]\p[4]\s[-1]\p[5]\s[-1]\p[6]\s[-1]\p[7]\s[-1]\p[8]\s[-1]\p[9]\s[-1]\p[10]\s[-1]\p[11]\s[-1]\p[12]\s[-1]\p[13]\s[-1]"
+}
+
+OnWindowStateRestore
+{
+	"\0\i[0]\1\i[0]\p[2]\i[0]\p[3]\i[0]\p[4]\i[0]\p[5]\i[0]\p[6]\i[0]\p[7]\i[0]\p[8]\i[0]\p[9]\i[0]\p[10]\i[0]\p[11]\i[0]\p[12]\i[0]\p[13]\i[0]\w6\1\s[-1]\p[2]\s[-2]\p[3]\s[-1]\p[4]\s[-1]\p[5]\s[-1]\p[6]\s[-1]\p[7]\s[-1]\p[8]\s[-1]\p[9]\s[-1]\p[10]\s[-1]\p[11]\s[-1]\p[12]\s[-1]\p[13]\s[-1]"
+}
+
+On_homeurl
+{
+	"https://raw.githubusercontent.com/SmokyCinnamon/eyeseeu_scr/main/"
+}
+
+
+//—————————————————————————————— ссылки меню нажатие правой кнопкой ——————————————————————————————
+
+//форматировать массив попеременные названия и URL-и для использование с меню правой кнопки
+FormatLinks : all
+{
+	for _i = 0; _i < ARRAYSIZE(_argv); _i++
+	{
+		_argv[_i] //добавить ссылка / название
+		//переменнить с %ASC(1) до %ASC(2)
+		if _i % 2 == 1; "%ASC(2)"
+		else; "%ASC(1)"
+	}
+}
+
+On_sakura.recommendsites
+{
+	FormatLinks(recommendsites_sakura)
+}
+
+//это веб-сайти, ссылкованы в самый верхный настроек меню правой кнопкой у сакуры. формат - простой, налево написать название ссыка, тогда точка с запятой, а направо-ссылка. они должны быть другие строки.
+recommendsites_sakura : array
+{
+	"название ссылка";	"https://link.example.com/link/to/whatever/here/"
+}
+
+On_sakura.portalsites 
+{
+	FormatLinks(portalsites_sakura)
+}
+
+//Той самый вещь, но для вторая кнопка
+portalsites_sakura : array
+{
+	"другое название";	"https://link.example.com/link/to/whatever/here/again/"
+	"третье название";	"https://link.example.com/link/to/whatever/a/third/time/you/can/add/as/many/as/you/want/"
+}
+
+On_kero.recommendsites
+{
+	FormatLinks(recommendsites_kero)
+}
+
+//как меню сакура, но для керо
+recommendsites_kero : array
+{
+	"эти названия может быть что угодно";	"https://link.example.com/link/to/whatever/here/once/more/"
+}
+
+
+//—————————————————————————————— User pronoun related ——————————————————————————————
+//от переводчик: именительный 	родительный 	дательный 	творительный 	предложный
+они
+{
+	if SHIORI3FW.UserSex == "male"; "он"
+	elseif SHIORI3FW.UserSex == "female"; "она"
+	else; "они"
+}
+
+их
+{
+	if SHIORI3FW.UserSex == "male"; "его"
+	elseif SHIORI3FW.UserSex == "female"; "её"
+	else; "их"
+}
+
+им
+{
+	if SHIORI3FW.UserSex == "male"; "ему"
+	elseif SHIORI3FW.UserSex == "female"; "ей"
+	else; "им"
+}
+
+ими
+{
+	if SHIORI3FW.UserSex == "male"; "им"
+	elseif SHIORI3FW.UserSex == "female"; "ей"
+	else; "ими"
+}
+
+ними
+{
+	if SHIORI3FW.UserSex == "male"; "ним"
+	elseif SHIORI3FW.UserSex == "female"; "ней"
+	else; "ними"
+}
+
+них
+{
+	if SHIORI3FW.UserSex == "male"; "нём"
+	elseif SHIORI3FW.UserSex == "female"; "ней"
+	else; "них"
+}
+
+сами
+{
+	if SHIORI3FW.UserSex == "male"; "сам"
+	elseif SHIORI3FW.UserSex == "female"; "сама"
+	else; "сами"
+}
+
+//%(они) дела%(м('ли','л','ла'))
+//можешь изменить имя этой функций! просто корото, потому что таким образом быстрее написать ему
+м
+{
+	if SHIORI3FW.UserSex == "undef"; _argv[0] //они делает
+	elseif SHIORI3FW.UserSex == "male"; _argv[1] //он делает
+	else; _argv[2] //она делает
+}
+
+/*
+
+Пример:
+"%(они) бы%м('ли', 'л', 'ла')) в поисках того. буду спросить, если еще не на%(м('шли','шёл','шла '))."
+
+при пользование они, функции %(м) будет отдать первое определённое слово
+"они были в поисках того. буду спросить, если ещё не нашли."
+
+при пользование, например, она, отдает третье слово:
+"она была в поисках того. буду спросить, если ещё не нашла."
+
+с этому функцию можешь быстро изменить конца словами, только напомните: она настроена, что первое слово всегда с местоимение "они" как в названием. но, это можно изменить
+(заметка от переводчик: нужно % (м) для винетельный падеж, потому что он... и есть. Поспробуйте пишить без местоимения...)
+
+*/
+
+//скопирован с файли SHIORI, с добавление переменная имя
+OnNotifyUserInfo : void
+{
+	SHIORI3FW.UserName = reference[0]
+	имя = reference[0]
+	SHIORI3FW.UserNameFull = reference[1]
+	SHIORI3FW.UserBirthday = SPLIT(reference[2],',',3)
+	for _i = 0 ; _i < 3 ; _i++ {
+		SHIORI3FW.UserBirthday[_i] = TOINT(SHIORI3FW.UserBirthday[_i])
+	}
+	SHIORI3FW.UserSex = reference[3]
+}

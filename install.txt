@@ -1,0 +1,5 @@
+charset,UTF-8
+type,ghost
+
+name,Eye See U
+directory,eyeseeu_scr
